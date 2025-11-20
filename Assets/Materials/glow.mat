@@ -71,9 +71,10 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ZWrite: 0
-    - _glowIntensity: 1
+    - _glowIntensity: 0
+    - _intensity: 1.24
     m_Colors:
-    - _Color: {r: 7.948255, g: 66.00507, b: 35.61053, a: 1}
+    - _Color: {r: 1.7411011, g: 1.7411011, b: 1.7411011, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

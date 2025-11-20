@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -18,60 +19,32 @@ public class Graph
             path = new List<int>();
         }
     }
-    Vector2[] vertices;
+    List<Vector2> vertices;
     List<(int, float)>[] edges;
 
-    Graph(Vector2[] vertices, List<(int, float)>[] edges)
+    public Graph(List<Vector2> vertices, List<(int, float)>[] edges)
     {
+
         this.vertices = vertices;
-       
         this.edges = edges;
-    }
-
-    public VertexPath Dijkstra(int from, int to)
-    {
-        //Setup
-        VertexPath[] state = Enumerable.Range(0, vertices.Length).Select(i => new VertexPath(i, float.PositiveInfinity)).ToArray(); // tableau (chemin, distance depuis origine)
-        state[from].length = 0;
-        List<int> todo = Enumerable.Range(0, this.vertices.Length).ToList();
-
-        //Algorithm
-        int current = from;
-        while (todo.Count > 0)
-        {
-            UpdateNeighbours(state, current, edges);
-
-            todo.Remove(current);
-
-            float min = float.PositiveInfinity;
-            int next = -1;
-            foreach(var vertex in todo)
-            {
-                if (state[vertex].length < min)
-                {
-                    min = state[vertex].length;
-                    next = vertex;
-                }
-            }
-            if(next==-1) return state[to]; // graphe non connexe
-            if (next == to)//fin
-            {
-                state[to].path.Add(to);
-                return state[to]; 
-            }
-
-            current = next;
-        }
-        return state[to];
-
     }
 
     public VertexPath Astar(int from, int to)
     {
+        return Pathfinding(from,to,AstarDistance);
+    }
+
+        public VertexPath Djikstra(int from, int to)
+    {
+        return Pathfinding(from,to,DijkstraDistance);
+    }
+
+    public VertexPath Pathfinding(int from, int to, Func<int, VertexPath[], int, float> weightFunction)
+    {
         //Setup
-        VertexPath[] state = Enumerable.Range(0, vertices.Length).Select(i => new VertexPath(i, float.PositiveInfinity)).ToArray(); // tableau (chemin, distance depuis origine)
+        VertexPath[] state = Enumerable.Range(0, vertices.Count).Select(i => new VertexPath(i, float.PositiveInfinity)).ToArray(); // tableau (chemin, distance depuis origine)
         state[from].length = 0;
-        List<int> todo = Enumerable.Range(0, this.vertices.Length).ToList();
+        List<int> todo = Enumerable.Range(0, this.vertices.Count).ToList();
 
         //Algorithm
         int current = from;
@@ -85,9 +58,9 @@ public class Graph
             int next = -1;
             foreach(var vertex in todo)
             {
-                if (state[vertex].length + Vector2.Distance(vertices[vertex], vertices[from]) < min)
+                if (weightFunction(from, state, vertex) < min)
                 {
-                    min = state[vertex].length + Vector2.Distance(vertices[vertex], vertices[from]);
+                    min = weightFunction(from, state, vertex);
                     next = vertex;
                 }
             }
@@ -102,6 +75,17 @@ public class Graph
         }
         return state[to];
 
+    }
+
+    private float DijkstraDistance(int from, VertexPath[] state, int vertex)
+    {
+        return state[vertex].length;
+    }
+
+
+    private float AstarDistance(int from, VertexPath[] state, int vertex)
+    {
+        return state[vertex].length + Vector2.Distance(vertices[vertex], vertices[from]);
     }
 
     void UpdateNeighbours(VertexPath[] state, int current, List<(int, float)>[] edges)
@@ -119,6 +103,5 @@ public class Graph
             } 
         }
     }
-
     
 }

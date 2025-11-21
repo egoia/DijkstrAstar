@@ -43,8 +43,4 @@ public class Pathfinder : MonoBehaviour
         return new Graph(vertices, graphEdges);
     }
 
-    void HightlightPath()
-    {
-        
-    }
 }

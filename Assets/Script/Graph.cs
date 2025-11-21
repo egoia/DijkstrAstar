@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Graph
+public class Graph : ScriptableObject
 {
     public class VertexPath
     {
@@ -19,8 +19,8 @@ public class Graph
             path = new List<int>();
         }
     }
-    List<Vector2> vertices;
-    List<(int, float)>[] edges;
+    public List<Vector2> vertices;
+    public List<(int, float)>[] edges;
 
     public Graph(List<Vector2> vertices, List<(int, float)>[] edges)
     {

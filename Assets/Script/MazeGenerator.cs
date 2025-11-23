@@ -7,19 +7,12 @@ public class MazeGenerator
 {
     public Vector2Int gridSize;
     public float edgeLength;
-    Graph maze;
-
-    int originIndex;
-
-    public GameObject vertex;
-    public GameObject edge;
-
-    List<(GameObject, List<GameObject>)> graphObjects;
-
+    public Graph maze;
+    public Vector2Int originIndex;
     public void Init()
     {
         List<Vector2> vertices = new List<Vector2>(gridSize.x * gridSize.y);
-        List<List<(int, float)>> egdesList = new List<List<(int, float)>>(gridSize.x * gridSize.y);
+        List<List<(int, float)>> edgesList = new List<List<(int, float)>>(gridSize.x * gridSize.y);
         for(int i = 0; i<gridSize.x; i++)
         {
             for (int j = 0; j < gridSize.y; j++)
@@ -28,30 +21,39 @@ public class MazeGenerator
                 List<(int, float)> edges = new List<(int, float)>();
                 if (i == gridSize.x - 1)
                 {
-                    if(j!=gridSize.y-1)edges.Add((i*gridSize.y *+j+1, edgeLength));
+                    if(j!=gridSize.y-1){
+                        edges.Add((i*gridSize.y +j+1, edgeLength));
+                    }
                 }
                 else
                 {
-                    edges.Add(((i+1)*gridSize.y *+j, edgeLength));
+                    edges.Add(((i+1)*gridSize.y +j, edgeLength));
                 }
-                egdesList.Add(edges);
+                edgesList.Add(edges);
 
             }
         }
-        maze = new Graph(vertices, egdesList.ToArray());
-        originIndex = gridSize.x*gridSize.y;
+        maze = (Graph)ScriptableObject.CreateInstance("Graph");
+        maze.vertices = vertices;
+        maze.edges = edgesList.ToArray();
+        originIndex = new Vector2Int(gridSize.x-1, gridSize.y-1);
     }
 
-    public void Tick()
+    public void OriginShift()
     {
-        
+        List<Vector2Int> neighboursIndexs = new List<Vector2Int>();
+        if(originIndex.x+1<gridSize.x) neighboursIndexs.Add(new Vector2Int(originIndex.x+1, originIndex.y));
+        if(originIndex.y+1<gridSize.y) neighboursIndexs.Add(new Vector2Int(originIndex.x, originIndex.y+1));
+        if(originIndex.x-1>=0) neighboursIndexs.Add(new Vector2Int(originIndex.x-1, originIndex.y));
+        if(originIndex.y-1>=0) neighboursIndexs.Add(new Vector2Int(originIndex.x, originIndex.y-1));
+        Vector2Int nextOrigin = neighboursIndexs[Random.Range(0,neighboursIndexs.Count)];
+        maze.edges[nextOrigin.x*gridSize.y + nextOrigin.y] = new List<(int, float)>();
+        maze.edges[originIndex.x*gridSize.y + originIndex.y].Add((nextOrigin.x*gridSize.y + nextOrigin.y, edgeLength));
+        originIndex = nextOrigin;
     }
 
 
-    Graph MakeItNonOriented(Graph graph)//TODO
-    {
-        return null;
-    }
+
     public void SaveMaze()
     {
         AssetDatabase.CreateAsset(maze, "Assets/Mazes/MyData.asset");

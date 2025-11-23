@@ -103,5 +103,38 @@ public class Graph : ScriptableObject
             } 
         }
     }
+
+    public static void MakeItNonOriented(Graph graph)
+    {
+        List<List<(int, float)>> nonOrientedEdges = new List<List<(int, float)>>();
+        for(int i = 0; i<graph.vertices.Count; i++)
+        {
+            nonOrientedEdges.Add(new List<(int, float)>());
+        }
+        for(int i = 0; i<graph.vertices.Count; i++)
+        {
+            foreach (var edge in graph.edges[i])
+            {
+                nonOrientedEdges[i].Add(edge);
+                nonOrientedEdges[edge.Item1].Add((i, edge.Item2));
+            }
+        }
+        graph.edges = nonOrientedEdges.ToArray();
+    }
+
+    public static Graph Optimize(Graph graph)//TODO
+    {
+        return null;
+    }
+
+    public Vector2[] GetWayPoints(VertexPath path, Transform parent)
+    {
+        List<Vector2> waypoints = new List<Vector2>();
+        foreach (var point in path.path)
+        {
+            waypoints.Add(vertices[point]+(Vector2)parent.position);
+        }
+        return waypoints.ToArray();
+    }
     
 }

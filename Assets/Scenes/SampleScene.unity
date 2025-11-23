@@ -421,7 +421,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   waypoints: []
-  speed: 200
+  speed: 2
+  closeRange: 0.1
 --- !u!212 &1303633739
 SpriteRenderer:
   m_ObjectHideFlags: 0

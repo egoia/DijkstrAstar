@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Graph : ScriptableObject
+public class Graph
 {
     public class VertexPath
     {

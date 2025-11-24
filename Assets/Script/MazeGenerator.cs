@@ -33,9 +33,7 @@ public class MazeGenerator
 
             }
         }
-        maze = (Graph)ScriptableObject.CreateInstance("Graph");
-        maze.vertices = vertices;
-        maze.edges = edgesList.ToArray();
+        maze = new Graph(vertices, edgesList.ToArray());
         originIndex = new Vector2Int(gridSize.x-1, gridSize.y-1);
     }
 
@@ -54,14 +52,14 @@ public class MazeGenerator
 
 
 
-    public void SaveMaze()
+    /*public void SaveMaze()
     {
         AssetDatabase.CreateAsset(maze, "Assets/Mazes/MyData.asset");
         AssetDatabase.SaveAssets();
 
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = maze;
-    }
+    }*/
 
     List<Vector2Int> get4Neighbours(int x, int y)
     {

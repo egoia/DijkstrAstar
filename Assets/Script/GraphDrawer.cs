@@ -15,33 +15,46 @@ public class GraphDrawer : MonoBehaviour
     List<(GameObject, List<(int,GameObject)>)> graphObjects;
     public float edgeLength = 5f;
     public MazeGenerator mazeGenerator;
-
     public float timeBetweenUpdate = 0.05f;
+
+    [HideInInspector]public bool astar;
 
     void OnEnable()
     {
-        InitTest();
-        GenerateMaze();
+        //GenerateMaze();
         //StartCoroutine("VisualizeOriginShiftCoroutine");
         Camera.main.orthographicSize = (edgeLength*gridSize.y +5)/2f;
     }
 
+
     [ContextMenu("regenerate")]
-    void TestPathfind()
+    void GenerateAndDrawMaze()
     {
-        Clear();
-        InitTest();
+        try {Clear();}
+        catch 
+        {
+            Debug.Log("nothing to clear");
+        }
+        Init();
         GenerateMaze();
+    }
+
+    public void StartVisualization()
+    {
+        Init();
+        DrawGraph(false);
+        StartCoroutine("VisualizeOriginShiftCoroutine");
     }
 
     void GenerateMaze()
     {
+        Init();
         for (int i = 0; i < gridSize.x*gridSize.y*10; i++)
         {
             mazeGenerator.OriginShift();
         }
         MakeItNonOriented(maze);
-        DrawGraph(); 
+        DrawGraph(true); 
         HighLightPath(maze.Astar(0, gridSize.x*gridSize.y -1));
     }
 
@@ -55,8 +68,8 @@ public class GraphDrawer : MonoBehaviour
         }
     }
 
-    [ContextMenu("Init test")]
-    public void InitTest()
+    [ContextMenu("Init")]
+    public void Init()
     {
         mazeGenerator = new MazeGenerator();
         mazeGenerator.gridSize = gridSize;
@@ -65,8 +78,7 @@ public class GraphDrawer : MonoBehaviour
         maze = mazeGenerator.maze;
     }
 
-    [ContextMenu("Draw")]
-    public void DrawGraph()
+    public void DrawGraph(bool isNonOriented)
     {
         transform.position = Vector2.zero;
 
@@ -78,7 +90,7 @@ public class GraphDrawer : MonoBehaviour
                 List<(int,GameObject)> edges = new List<(int,GameObject)>();
                 foreach (var item in maze.edges[i*gridSize.y + j])
                 {
-                    if(i*gridSize.y + j > item.Item1)
+                    if(i*gridSize.y + j > item.Item1 || !isNonOriented)
                     {
                         GameObject edgeInstance = Instantiate(edge, transform);
                         edgeInstance.transform.localScale = new Vector3(item.Item2, edge.transform.lossyScale.y, edge.transform.lossyScale.y);
@@ -95,15 +107,23 @@ public class GraphDrawer : MonoBehaviour
         }
         transform.position = new Vector2(-gridSize.x/2 * edgeLength, -gridSize.y/2 * edgeLength);
 
-        //HighlightOrigin();
     }
 
     [ContextMenu("OriginShift")]
-    void Tick()
+    void Tick() //one step of the visualization 
     {
         mazeGenerator.OriginShift();
-        Clear();
-        DrawGraph();
+        //MakeItNonOriented(maze);
+        try {Clear();}
+        catch 
+        {
+            Debug.Log("nothing to clear");
+        }
+        DrawGraph(false);
+        
+        HighlightOrigin();
+        /*if(astar)HighLightPath(maze.Astar(0, gridSize.x*gridSize.y -1));
+        else HighLightPath(maze.Djikstra(0, gridSize.x*gridSize.y -1));*/
     }
 
     void Clear()

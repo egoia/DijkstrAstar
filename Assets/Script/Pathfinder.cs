@@ -9,7 +9,7 @@ public class Pathfinder : MonoBehaviour
 
     public GameObject ball;
     public GraphDrawer drawer;
-    void Start()
+    void OnEnable()
     {
         
         ball.GetComponent<Ball>().waypoints = drawer.maze.GetWayPoints(drawer.maze.Astar(0,drawer.gridSize.x*drawer.gridSize.y-1),drawer.transform);

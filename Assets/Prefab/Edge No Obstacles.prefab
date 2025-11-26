@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5594982433337036829}
   - component: {fileID: 2815603752373848951}
   m_Layer: 0
-  m_Name: Edge
+  m_Name: Edge No Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,14 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a7f97aa034cde489715626dcd11dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  obstacles:
-  - {fileID: 8565397481827377880, guid: 375717f5d26e02c4bba20c60adeed0f6, type: 3}
-  - {fileID: 8565397481827377880, guid: 375717f5d26e02c4bba20c60adeed0f6, type: 3}
-  - {fileID: 8565397481827377880, guid: 375717f5d26e02c4bba20c60adeed0f6, type: 3}
-  - {fileID: 4913422383276187341, guid: 4216e9002109d13438db208259240fa0, type: 3}
-  - {fileID: 4913422383276187341, guid: 4216e9002109d13438db208259240fa0, type: 3}
-  - {fileID: 4839585291007445659, guid: 56c411690067b4344ad6528d90315ad0, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  obstacles: []

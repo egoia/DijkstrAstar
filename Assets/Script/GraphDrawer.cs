@@ -23,20 +23,21 @@ public class GraphDrawer : MonoBehaviour
     {
         //GenerateMaze();
         //StartCoroutine("VisualizeOriginShiftCoroutine");
-        Camera.main.orthographicSize = (edgeLength*gridSize.y +5)/2f;
+        //Camera.main.orthographicSize = (edgeLength*gridSize.y +5)/2f;
     }
 
+    
 
-    [ContextMenu("regenerate")]
-    void GenerateAndDrawMaze()
+    public void DrawGameGraph()
     {
+        Camera.main.orthographicSize = (edgeLength*gridSize.y +5)/2f;
         try {Clear();}
         catch 
         {
             Debug.Log("nothing to clear");
         }
         Init();
-        GenerateMaze();
+        GenerateMaze(false);
     }
 
     public void StartVisualization()
@@ -46,7 +47,7 @@ public class GraphDrawer : MonoBehaviour
         StartCoroutine("VisualizeOriginShiftCoroutine");
     }
 
-    void GenerateMaze()
+    void GenerateMaze(bool highlight_path)
     {
         Init();
         for (int i = 0; i < gridSize.x*gridSize.y*10; i++)
@@ -55,7 +56,7 @@ public class GraphDrawer : MonoBehaviour
         }
         MakeItNonOriented(maze);
         DrawGraph(true); 
-        HighLightPath(maze.Astar(0, gridSize.x*gridSize.y -1));
+        if(highlight_path)HighLightPath(maze.Astar(0, gridSize.x*gridSize.y -1));
     }
 
     IEnumerator VisualizeOriginShiftCoroutine()

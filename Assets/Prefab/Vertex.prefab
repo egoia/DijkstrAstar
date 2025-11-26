@@ -103,5 +103,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847c0db286d37f744b473a5134e724f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Highlighter
-  glow: {fileID: 2100000, guid: 5e778e9a8dcf980498e7c85ee1698143, type: 2}
+  glow: {fileID: 2100000, guid: 86287601f7337614d808e6ed9f665d28, type: 2}
   normal: {fileID: 2100000, guid: c5101cc5059a5b84c8de9c0984ca58e1, type: 2}

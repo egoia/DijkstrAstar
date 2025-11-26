@@ -152,7 +152,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 9ea4d73177b77ad4a8e542f82c677945, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 0a3eaef85accded448ed595cdb6093c3, type: 2}
 --- !u!4 &8981769
 Transform:
   m_ObjectHideFlags: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   gridSize: {x: 30, y: 30}
   vertex: {fileID: 6017253374649496171, guid: 9e7ef4ec96fd54b428fcfc42983a493e, type: 3}
-  edge: {fileID: 8720107460069165867, guid: e30b1b268a7968746b115c9de114c685, type: 3}
+  edge: {fileID: 8720107460069165867, guid: 24c9c90bf638df14d972458f807934c3, type: 3}
   edgeLength: 5
   timeBetweenUpdate: 0.05
   astar: 0

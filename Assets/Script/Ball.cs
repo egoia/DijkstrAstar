@@ -17,12 +17,16 @@ public class Ball : MonoBehaviour
     public bool isDashing {get;private set;}
     float dashTimer = 0;
 
+    InputSystem_Actions input;
+
 
     void Start()
     {
         isDashing = false;
         index = 1;
         transform.position = waypoints[0];
+        input = new InputSystem_Actions();
+        input.Player.Enable();
     }
 
     // Update is called once per frame
@@ -36,6 +40,7 @@ public class Ball : MonoBehaviour
                 isDashing = false;
             }
         }
+
 
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
         {

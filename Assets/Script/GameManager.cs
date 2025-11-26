@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static Graph;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,11 +14,12 @@ public class GameManager : MonoBehaviour
         drawer = GetComponent<GraphDrawer>();
         drawer.DrawGameGraph();
         Debug.Log("generation done");
-        Vector2[] waypoints;
-        if (astar) waypoints = drawer.maze.GetWayPoints(drawer.maze.Astar(0,drawer.gridSize.x*drawer.gridSize.y-1),drawer.transform);
-        else waypoints = drawer.maze.GetWayPoints(drawer.maze.Djikstra(0,drawer.gridSize.x*drawer.gridSize.y-1),drawer.transform);
+        VertexPath waypoints;
+        if (astar) waypoints = drawer.maze.Astar(0,drawer.gridSize.x*drawer.gridSize.y-1);
+        else waypoints = drawer.maze.Djikstra(0,drawer.gridSize.x*drawer.gridSize.y-1);
+        drawer.HighLightPath(waypoints);
         Debug.Log("pathfinding done");
-        player.GetComponent<Ball>().waypoints = waypoints;
+        player.GetComponent<Ball>().waypoints = drawer.maze.GetWayPoints(waypoints, transform);
         StartCoroutine("StartGameCoroutine");
         
     }
@@ -28,5 +30,6 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(Camera.main.GetComponent<CameraManager>().StartGameCoroutine());
         yield return new WaitForSeconds(startWaitingTime);
         player.GetComponent<Ball>().StartMoving();
+        player.GetComponentInChildren<TrailRenderer>().emitting = true;
     }
 }

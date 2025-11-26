@@ -61,6 +61,8 @@ public class GraphDrawer : MonoBehaviour
 
     IEnumerator VisualizeOriginShiftCoroutine()
     {
+        
+        Camera.main.orthographicSize = (edgeLength*gridSize.y +5)/2f;
         //visualize origin shift algorithm
         for (int i = 0; i < gridSize.x*gridSize.y*10; i++)
         {

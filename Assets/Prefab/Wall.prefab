@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4344222076504493863}
   - component: {fileID: 1668609240830047965}
   - component: {fileID: 6213446566619308859}
+  - component: {fileID: 7857414815189660222}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -151,3 +152,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.7143451}
   m_EdgeRadius: 0
+--- !u!114 &7857414815189660222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2522503092427323753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847c0db286d37f744b473a5134e724f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Highlighter
+  glow: {fileID: 2100000, guid: 26f3acbbe91462646adaffbad807d3d3, type: 2}
+  normal: {fileID: 2100000, guid: b56c9559a3277c646b6bd82d11fa0219, type: 2}

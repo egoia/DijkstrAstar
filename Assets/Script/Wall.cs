@@ -14,7 +14,7 @@ public class Wall : MonoBehaviour
             }
             else
             {
-                Destroy(ball.gameObject);
+                ball.gameObject.SetActive(false);
             }
         }
     }
@@ -25,6 +25,7 @@ public class Wall : MonoBehaviour
         if(ball != null)
         {
             ball.resetDash();
+            GetComponent<Highlighter>().Highlight(true);
         }
     }
 }

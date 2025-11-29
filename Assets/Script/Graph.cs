@@ -34,7 +34,7 @@ public class Graph
         return Pathfinding(from,to,AstarDistance);
     }
 
-        public VertexPath Djikstra(int from, int to)
+    public VertexPath Djikstra(int from, int to)
     {
         return Pathfinding(from,to,DijkstraDistance);
     }

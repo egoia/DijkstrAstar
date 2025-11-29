@@ -522,7 +522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pathfinder
   player: {fileID: 1303633737}
-  astar: 1
+  astar: 0
   startWaitingTime: 2
 --- !u!4 &1428806290
 Transform:

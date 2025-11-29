@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   gridSize: {x: 30, y: 30}
-  vertex: {fileID: 6017253374649496171, guid: 9e7ef4ec96fd54b428fcfc42983a493e, type: 3}
+  vertex: {fileID: 6017253374649496171, guid: e5c453e09c88a5e468d6aca68aff4b42, type: 3}
   edge: {fileID: 8720107460069165867, guid: 24c9c90bf638df14d972458f807934c3, type: 3}
   edgeLength: 5
   timeBetweenUpdate: 0.05
